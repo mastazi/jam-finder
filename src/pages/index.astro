@@ -1,0 +1,19 @@
+---
+const now = new Date();
+const hh = String(now.getUTCHours()).padStart(2, '0');
+const mm = String(now.getUTCMinutes()).padStart(2, '0');
+const timeUtc = `${hh}:${mm}`;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Hello World</title>
+  </head>
+  <body>
+    <main>
+      <h1>{`hello world, it's ${timeUtc} UTC`}</h1>
+    </main>
+  </body>
+</html>
