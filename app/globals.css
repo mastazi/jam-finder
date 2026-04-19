@@ -1,10 +1,24 @@
-:root {
-  color-scheme: light dark;
+:root,
+html[data-theme='dark'] {
   --bg: #0f1115;
   --bg-soft: #171a21;
   --text: #f3f4f6;
   --muted: #a6adbb;
   --accent: #60a5fa;
+  --surface: rgb(23 26 33 / 88%);
+  --surface-border: rgb(166 173 187 / 30%);
+  --page-gradient: radial-gradient(circle at top, #1f2937, var(--bg) 40%);
+}
+
+html[data-theme='light'] {
+  --bg: #eff3f8;
+  --bg-soft: #ffffff;
+  --text: #111827;
+  --muted: #4b5563;
+  --accent: #2563eb;
+  --surface: rgb(255 255 255 / 95%);
+  --surface-border: rgb(75 85 99 / 18%);
+  --page-gradient: radial-gradient(circle at top, #dbeafe, var(--bg) 40%);
 }
 
 * {
@@ -14,9 +28,89 @@
 body {
   margin: 0;
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: radial-gradient(circle at top, #1f2937, var(--bg) 40%);
+  background: var(--page-gradient);
   color: var(--text);
   min-height: 100vh;
+}
+
+.top-nav-wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+  background: color-mix(in srgb, var(--bg) 78%, transparent);
+  border-bottom: 1px solid var(--surface-border);
+}
+
+.top-nav {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0.85rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand-link {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.login-link,
+.profile-link,
+.theme-toggle,
+.auth-form button,
+.logout-btn {
+  border: 1px solid var(--surface-border);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.login-link,
+.profile-link {
+  padding: 0.45rem 0.9rem;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.75rem;
+  cursor: pointer;
+}
+
+.profile-icon,
+.profile-card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+.profile-icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+.profile-icon svg,
+.profile-card-icon svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  fill: var(--text);
 }
 
 main {
@@ -40,7 +134,7 @@ p {
   align-items: center;
   gap: 0.5rem;
   background: color-mix(in srgb, var(--accent) 15%, transparent);
-  color: #dbeafe;
+  color: color-mix(in srgb, var(--accent) 75%, #fff 25%);
   border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
   border-radius: 999px;
   padding: 0.35rem 0.75rem;
@@ -59,11 +153,11 @@ p {
 
 .jam-card {
   width: 100%;
-  background: color-mix(in srgb, var(--bg-soft) 88%, transparent);
-  border: 1px solid color-mix(in srgb, var(--muted) 30%, transparent);
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 12px 48px rgb(0 0 0 / 0.25);
+  box-shadow: 0 12px 48px rgb(0 0 0 / 0.15);
 }
 
 .jam-card-link {
@@ -90,7 +184,7 @@ p {
   margin: 0;
   font-size: 0.85rem;
   font-weight: 700;
-  color: #93c5fd;
+  color: color-mix(in srgb, var(--accent) 75%, #fff 10%);
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
@@ -111,12 +205,12 @@ li + li {
 }
 
 .back-link {
-  color: #bfdbfe;
+  color: color-mix(in srgb, var(--accent) 70%, #fff 20%);
 }
 
 .jam-detail-card {
-  background: color-mix(in srgb, var(--bg-soft) 88%, transparent);
-  border: 1px solid color-mix(in srgb, var(--muted) 30%, transparent);
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
   border-radius: 16px;
   overflow: hidden;
 }
@@ -138,7 +232,87 @@ li + li {
   padding-left: 1rem;
 }
 
+.auth-shell,
+.profile-shell {
+  max-width: 520px;
+  margin: 0 auto;
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: 16px;
+  padding: 1.25rem;
+}
+
+.auth-form {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.auth-form label {
+  display: grid;
+  gap: 0.4rem;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.auth-form input {
+  border: 1px solid var(--surface-border);
+  border-radius: 10px;
+  padding: 0.7rem 0.8rem;
+  background: color-mix(in srgb, var(--bg-soft) 90%, transparent);
+  color: var(--text);
+}
+
+.auth-form button,
+.logout-btn {
+  width: fit-content;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+}
+
+.form-error {
+  color: #ef4444;
+  margin: 0;
+}
+
+.profile-card {
+  display: flex;
+  gap: 0.9rem;
+  align-items: center;
+  border: 1px solid var(--surface-border);
+  border-radius: 12px;
+  padding: 0.9rem;
+  margin: 1rem 0;
+}
+
+.profile-card-icon {
+  width: 3rem;
+  height: 3rem;
+}
+
+.profile-label {
+  margin: 0;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.profile-identifier {
+  margin: 0.25rem 0 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-size: 0.95rem;
+  overflow-wrap: anywhere;
+}
+
+.logout-btn {
+  margin-top: 1.25rem;
+}
+
 @media (max-width: 800px) {
+  .top-nav,
+  main {
+    padding: 1rem;
+  }
+
   .jam-detail-layout {
     grid-template-columns: 1fr;
     gap: 1rem;
