@@ -1,8 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { FormEvent, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { FormEvent, useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import { SESSION_KEY, notifySessionChanged } from '@/lib/supabase/auth-session';
 import { env } from '@/lib/config/env';
@@ -13,10 +13,14 @@ type AuthResponse = {
 
 export default function LoginPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const isVerified = searchParams.get('verified') === '1';
+  const [isVerified, setIsVerified] = useState(false);
+
+  useEffect(() => {
+    const verified = new URLSearchParams(window.location.search).get('verified') === '1';
+    setIsVerified(verified);
+  }, []);
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
