@@ -67,6 +67,7 @@ body {
 }
 
 .login-link,
+.signup-link,
 .profile-link,
 .theme-switch,
 .auth-form button,
@@ -80,6 +81,7 @@ body {
 }
 
 .login-link,
+.signup-link,
 .profile-link {
   padding: 0.45rem 0.9rem;
 }
@@ -265,6 +267,21 @@ li + li {
   border: 1px solid var(--surface-border);
   border-radius: 16px;
   padding: 1.25rem;
+}
+
+.clerk-shell {
+  max-width: 760px;
+}
+
+.clerk-card-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 1.25rem 0;
+}
+
+.clerk-card-wrap .cl-rootBox,
+.clerk-card-wrap .cl-cardBox {
+  width: 100%;
 }
 
 .auth-form {
