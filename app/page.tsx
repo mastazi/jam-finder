@@ -1,4 +1,5 @@
 import { getJamSessions } from '@/lib/supabase/jam-sessions';
+import Link from 'next/link';
 
 export default async function HomePage() {
   const jamSessions = await getJamSessions();
@@ -13,27 +14,29 @@ export default async function HomePage() {
 
       <section className="jam-grid" aria-label="Jam session list">
         {jamSessions.map((session) => (
-          <article className="jam-card" key={session.id}>
-            <img src={session.imageUrl} alt={`${session.genre} musicians jamming`} className="jam-image" />
-            <div className="jam-content">
-              <p className="genre-tag">{session.genre}</p>
-              <h2>{session.name}</h2>
-              <ul>
-                <li>
-                  <strong>Date:</strong> {session.eventDate}
-                </li>
-                <li>
-                  <strong>Time:</strong> {session.eventTime}
-                </li>
-                <li>
-                  <strong>Location:</strong> {session.location}
-                </li>
-                <li>
-                  <strong>Frequency:</strong> {session.frequency}
-                </li>
-              </ul>
-            </div>
-          </article>
+          <Link href={`/jams/${session.id}`} className="jam-card-link" key={session.id}>
+            <article className="jam-card">
+              <img src={session.imageUrl} alt={`${session.genre} musicians jamming`} className="jam-image" />
+              <div className="jam-content">
+                <p className="genre-tag">{session.genre}</p>
+                <h2>{session.name}</h2>
+                <ul>
+                  <li>
+                    <strong>Date:</strong> {session.eventDate}
+                  </li>
+                  <li>
+                    <strong>Time:</strong> {session.eventTime}
+                  </li>
+                  <li>
+                    <strong>Location:</strong> {session.location}
+                  </li>
+                  <li>
+                    <strong>Frequency:</strong> {session.frequency}
+                  </li>
+                </ul>
+              </div>
+            </article>
+          </Link>
         ))}
       </section>
     </main>
