@@ -68,7 +68,7 @@ body {
 
 .login-link,
 .profile-link,
-.theme-toggle,
+.theme-switch,
 .auth-form button,
 .logout-btn {
   border: 1px solid var(--surface-border);
@@ -84,12 +84,37 @@ body {
   padding: 0.45rem 0.9rem;
 }
 
-.theme-toggle {
+.theme-switch {
+  padding: 0.2rem;
+  cursor: pointer;
+  line-height: 0;
+}
+
+.theme-switch-track {
+  width: 2.8rem;
+  height: 1.55rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 35%, var(--bg-soft));
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  padding: 0.45rem 0.75rem;
-  cursor: pointer;
+  padding: 0.1rem;
+}
+
+.theme-switch-icon {
+  width: 1.28rem;
+  height: 1.28rem;
+  border-radius: 50%;
+  background: color-mix(in srgb, white 84%, var(--accent));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.74rem;
+  transform: translateX(0);
+  transition: transform 140ms ease;
+}
+
+html[data-theme='dark'] .theme-switch-icon {
+  transform: translateX(1.2rem);
 }
 
 .profile-icon,

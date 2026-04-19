@@ -35,10 +35,21 @@ export function ThemeToggle() {
     window.localStorage.setItem(STORAGE_KEY, nextTheme);
   };
 
+  const isDark = theme === 'dark';
+
   return (
-    <button type="button" className="theme-toggle" onClick={toggleTheme} aria-label="Toggle dark and light mode">
-      <span aria-hidden>{theme === 'dark' ? '🌙' : '☀️'}</span>
-      <span>{theme === 'dark' ? 'Dark' : 'Light'}</span>
+    <button
+      type="button"
+      className="theme-switch"
+      onClick={toggleTheme}
+      role="switch"
+      aria-checked={isDark}
+      aria-label="Toggle dark and light mode"
+      title={isDark ? 'Dark mode enabled' : 'Light mode enabled'}
+    >
+      <span className="theme-switch-track" aria-hidden>
+        <span className="theme-switch-icon">{isDark ? '🌙' : '☀️'}</span>
+      </span>
     </button>
   );
 }
