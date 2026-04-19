@@ -62,3 +62,9 @@ When your environment allows package installation:
    ```
 
 2. Replace the placeholder return values in `lib/supabase/client.ts` and `lib/supabase/server.ts` with real `createClient(...)` setup.
+
+## Supabase table + seed SQL
+
+Run `supabase/jam_sessions.sql` in the Supabase SQL Editor to create and seed the `jam_sessions` table used by the homepage.
+
+The homepage now queries Supabase directly via the REST API (`/rest/v1/jam_sessions`) using the configured `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
