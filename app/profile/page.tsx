@@ -52,7 +52,7 @@ export default function ProfilePage() {
       }
 
       const user = (await response.json()) as UserResponse;
-      setIdentifier(user.id || user.email || 'Unknown user');
+      setIdentifier(user.email || user.id || 'Unknown user');
       setIsLoading(false);
     };
 
@@ -90,7 +90,7 @@ export default function ProfilePage() {
           <article className="profile-card">
             <ProfileAvatar />
             <div>
-              <p className="profile-label">Current user identifier</p>
+              <p className="profile-label">Email address</p>
               <p className="profile-identifier">{identifier}</p>
             </div>
           </article>

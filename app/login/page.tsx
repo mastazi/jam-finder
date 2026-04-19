@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { SESSION_KEY, notifySessionChanged } from '@/lib/supabase/auth-session';
@@ -15,6 +15,12 @@ export default function LoginPage() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
+
+  useEffect(() => {
+    const verified = new URLSearchParams(window.location.search).get('verified') === '1';
+    setIsVerified(verified);
+  }, []);
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -52,6 +58,7 @@ export default function LoginPage() {
       <section className="auth-shell">
         <h1>Log in</h1>
         <p>Use your Supabase account to access your Jam Finder profile.</p>
+        {isVerified ? <p>Your email is verified. You can log in now.</p> : null}
 
         <form className="auth-form" onSubmit={onSubmit}>
           <label>

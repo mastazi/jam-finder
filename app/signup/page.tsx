@@ -14,6 +14,7 @@ type SignupResponse = {
 export default function SignupPage() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -24,6 +25,7 @@ export default function SignupPage() {
     const form = new FormData(event.currentTarget);
     const email = form.get('email');
     const password = form.get('password');
+    const emailRedirectTo = `${window.location.origin}/login?verified=1`;
 
     const response = await fetch(`${env.supabaseUrl}/auth/v1/signup`, {
       method: 'POST',
@@ -31,7 +33,13 @@ export default function SignupPage() {
         apikey: env.supabaseAnonKey,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({
+        email,
+        password,
+        options: {
+          emailRedirectTo
+        }
+      })
     });
 
     if (!response.ok) {
@@ -50,8 +58,8 @@ export default function SignupPage() {
       return;
     }
 
-    router.push('/login');
-    router.refresh();
+    setNotice('Account created. Check your inbox for a verification email before logging in.');
+    setIsSubmitting(false);
   };
 
   return (
@@ -72,6 +80,7 @@ export default function SignupPage() {
           </label>
 
           {error ? <p className="form-error">{error}</p> : null}
+          {notice ? <p>{notice}</p> : null}
 
           <button type="submit" disabled={isSubmitting}>
             {isSubmitting ? 'Creating account…' : 'Create account'}
