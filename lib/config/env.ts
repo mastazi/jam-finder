@@ -1,19 +1,16 @@
-const requiredPublicVars = ['NEXT_PUBLIC_SUPABASE_URL', 'NEXT_PUBLIC_SUPABASE_ANON_KEY'] as const;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-type RequiredPublicVar = (typeof requiredPublicVars)[number];
+if (!supabaseUrl) {
+  throw new Error('Missing required environment variable: NEXT_PUBLIC_SUPABASE_URL');
+}
 
-const readRequired = (name: RequiredPublicVar): string => {
-  const value = process.env[name];
-
-  if (!value) {
-    throw new Error(`Missing required environment variable: ${name}`);
-  }
-
-  return value;
-};
+if (!supabaseAnonKey) {
+  throw new Error('Missing required environment variable: NEXT_PUBLIC_SUPABASE_ANON_KEY');
+}
 
 export const env = {
-  supabaseUrl: readRequired('NEXT_PUBLIC_SUPABASE_URL'),
-  supabaseAnonKey: readRequired('NEXT_PUBLIC_SUPABASE_ANON_KEY'),
+  supabaseUrl,
+  supabaseAnonKey,
   supabaseServiceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY
 };
