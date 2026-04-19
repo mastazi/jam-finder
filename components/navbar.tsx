@@ -1,10 +1,8 @@
-'use client';
-
+import { UserButton } from '@clerk/nextjs';
+import { auth } from '@clerk/nextjs/server';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 
 import { ThemeToggle } from '@/components/theme-toggle';
-import { SESSION_EVENT, SESSION_KEY } from '@/lib/supabase/auth-session';
 
 function ProfileIcon() {
   return (
@@ -16,27 +14,8 @@ function ProfileIcon() {
   );
 }
 
-export function Navbar() {
-  const [hasSession, setHasSession] = useState(false);
-
-  useEffect(() => {
-    const syncSession = () => setHasSession(Boolean(window.localStorage.getItem(SESSION_KEY)));
-
-    syncSession();
-
-    const onStorage = (event: StorageEvent) => {
-      if (event.key === SESSION_KEY) {
-        syncSession();
-      }
-    };
-
-    window.addEventListener('storage', onStorage);
-    window.addEventListener(SESSION_EVENT, syncSession);
-    return () => {
-      window.removeEventListener('storage', onStorage);
-      window.removeEventListener(SESSION_EVENT, syncSession);
-    };
-  }, []);
+export async function Navbar() {
+  const { userId } = await auth();
 
   return (
     <header className="top-nav-wrapper">
@@ -47,14 +26,22 @@ export function Navbar() {
 
         <div className="nav-actions">
           <ThemeToggle />
-          {hasSession ? (
-            <Link href="/profile" className="profile-link" aria-label="Profile page">
-              <ProfileIcon />
-            </Link>
+          {userId ? (
+            <>
+              <Link href="/profile" className="profile-link" aria-label="Profile page">
+                <ProfileIcon />
+              </Link>
+              <UserButton />
+            </>
           ) : (
-            <Link href="/login" className="login-link">
-              Login
-            </Link>
+            <>
+              <Link href="/login" className="login-link">
+                Login
+              </Link>
+              <Link href="/signup" className="signup-link">
+                Sign up
+              </Link>
+            </>
           )}
         </div>
       </nav>
