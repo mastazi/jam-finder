@@ -277,10 +277,6 @@ li + li {
   display: flex;
   justify-content: center;
   margin: 1.25rem 0;
-}
-
-.clerk-card-wrap .cl-rootBox,
-.clerk-card-wrap .cl-cardBox {
   width: 100%;
 }
 
