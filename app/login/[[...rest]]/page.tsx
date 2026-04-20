@@ -7,7 +7,7 @@ export default async function LoginPage() {
   const { userId } = await auth();
 
   if (userId) {
-    redirect('/profile');
+    redirect('/');
   }
 
   return (
@@ -17,7 +17,7 @@ export default async function LoginPage() {
         <p>Use Clerk to sign in to your Jam Finder account.</p>
 
         <div className="clerk-card-wrap">
-          <SignIn path="/login" routing="path" signUpUrl="/signup" fallbackRedirectUrl="/profile" />
+          <SignIn path="/login" routing="path" signUpUrl="/signup" fallbackRedirectUrl="/" />
         </div>
 
         <p>
