@@ -4,9 +4,26 @@ Jam Finder has been reimplemented with **Next.js App Router** and prepared for c
 
 ## Tech stack
 
-- Next.js (App Router)
+- Next.js 16 (App Router)
 - React + TypeScript (strict mode)
+- Node.js 22+
+- Clerk authentication via `ClerkProvider` + `clerkMiddleware`
 - Environment-first Supabase integration scaffolding
+
+
+## Runtime requirements
+
+- Node.js 22 or newer (`.nvmrc` is set to `22`).
+- Next.js 16.x.
+
+## Clerk + Next.js 16
+
+This project already uses the current Clerk integration style for App Router:
+
+- `ClerkProvider` in `app/layout.tsx`
+- `clerkMiddleware()` in `proxy.ts`
+
+No migration from legacy `authMiddleware` is required in this codebase.
 
 ## Project structure
 
