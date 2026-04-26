@@ -162,16 +162,63 @@ p {
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 12px 48px rgb(0 0 0 / 0.15);
+  transition: transform 140ms ease, border-color 140ms ease;
 }
 
-.jam-card-link {
+.jam-card:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+}
+
+.jam-media {
+  position: relative;
+}
+
+.jam-card-link,
+.jam-card-title-link {
   text-decoration: none;
   color: inherit;
 }
 
-.jam-card-link:hover .jam-card {
-  transform: translateY(-2px);
-  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+.jam-card-title-link:hover {
+  color: color-mix(in srgb, var(--accent) 70%, #fff 20%);
+}
+
+.favourite-form {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  z-index: 2;
+}
+
+.favourite-btn {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  z-index: 2;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgb(255 255 255 / 70%);
+  background: rgb(15 17 21 / 40%);
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+}
+
+.heart-icon {
+  width: 1rem;
+  height: 1rem;
+  fill: transparent;
+  stroke: #fff;
+  stroke-width: 2;
+}
+
+.heart-icon-filled {
+  fill: #ef4444;
+  stroke: #ef4444;
 }
 
 .jam-image {
@@ -258,56 +305,4 @@ li + li {
 
 html[data-theme='dark'] .auth-shell p a {
   color: color-mix(in srgb, var(--accent) 72%, white 28%);
-}
-
-html[data-theme='dark'] .auth-shell p a:hover {
-  color: color-mix(in srgb, var(--accent) 60%, white 40%);
-}
-
-.auth-form {
-  display: grid;
-  gap: 0.9rem;
-}
-
-.auth-form label {
-  display: grid;
-  gap: 0.4rem;
-  color: var(--text);
-  font-weight: 600;
-}
-
-.auth-form input {
-  border: 1px solid var(--surface-border);
-  border-radius: 10px;
-  padding: 0.7rem 0.8rem;
-  background: color-mix(in srgb, var(--bg-soft) 90%, transparent);
-  color: var(--text);
-}
-
-.auth-form button,
-.logout-btn {
-  width: fit-content;
-  padding: 0.6rem 1rem;
-  cursor: pointer;
-}
-
-.form-error {
-  color: #ef4444;
-  margin: 0;
-}
-
-.logout-btn {
-  margin-top: 1.25rem;
-}
-
-@media (max-width: 800px) {
-  .top-nav,
-  main {
-    padding: 1rem;
-  }
-
-  .jam-detail-layout {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
 }
