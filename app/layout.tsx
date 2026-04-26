@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 
 import { Navbar } from '@/components/navbar';
+import { env } from '@/lib/config/env';
 
 export const metadata: Metadata = {
   title: 'Jam Finder',
@@ -18,7 +19,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" data-theme="dark">
       <body>
-        <ClerkProvider>
+        <ClerkProvider domain={env.clerkDomain} proxyUrl={env.clerkProxyUrl}>
           <Navbar />
           {children}
         </ClerkProvider>

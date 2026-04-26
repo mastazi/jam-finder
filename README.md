@@ -25,6 +25,8 @@ This project already uses the current Clerk integration style for App Router:
 
 No migration from legacy `authMiddleware` is required in this codebase.
 
+If you use a custom domain or proxy for Clerk, this project supports `NEXT_PUBLIC_CLERK_DOMAIN` and `NEXT_PUBLIC_CLERK_PROXY_URL` and forwards them to both `ClerkProvider` and `clerkMiddleware()`. On Vercel, if `NEXT_PUBLIC_CLERK_DOMAIN` is not set, the app falls back to `VERCEL_URL` automatically.
+
 ## Project structure
 
 ```txt
@@ -52,6 +54,10 @@ lib/supabase/         # browser/server Supabase client factory scaffolding
    - `NEXT_PUBLIC_SUPABASE_URL`
    - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
    - Optional: `SUPABASE_SERVICE_ROLE_KEY` for server-side admin tasks
+
+   - Optional (custom Clerk domain/proxy setups):
+     - `NEXT_PUBLIC_CLERK_DOMAIN` (host only, e.g. `auth.example.com`; if omitted on Vercel, `VERCEL_URL` is used)
+     - `NEXT_PUBLIC_CLERK_PROXY_URL` (full URL if you're fronting Clerk behind a proxy)
 
 4. Start dev server:
 
